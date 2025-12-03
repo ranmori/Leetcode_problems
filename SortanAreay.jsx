@@ -21,3 +21,33 @@ var sortArray = function(nums) {
 };
 //this passes  11/13
 //merge sort
+var sortArray = function(nums) {
+    
+    function mergeSort(arr, l, r) {
+        if (l >= r) return;
+        let m = Math.floor((l + r) / 2);
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+        merge(arr, l, m, r);
+    }
+
+    function merge(arr, l, m, r) {
+        let temp = [];
+        let i = l, j = m + 1;
+
+        while(i <= m && j <= r) {
+            if(arr[i] <= arr[j]) temp.push(arr[i++]);
+            else temp.push(arr[j++]);
+        }
+
+        while(i <= m) temp.push(arr[i++]);
+        while(j <= r) temp.push(arr[j++]);
+
+        for(let k = l; k <= r; k++) {
+            arr[k] = temp[k - l];
+        }
+    }
+
+    mergeSort(nums, 0, nums.length - 1);
+    return nums;
+};
